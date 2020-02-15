@@ -1,0 +1,47 @@
+# ffiirree@2019/10/15
+# 
+# Find the FFMPEG libraries
+#
+# The following are set after configuration is done:
+#  FFMPEG_FOUND
+#  FFMPEG_INCLUDE_DIRS
+#  FFMPEG_LIBRARIES
+#  FFMPEG_LIBRARIES_DIR
+
+if(NOT DEFINED ENV{FFMPEG_PATH})
+    message(FATAL_ERROR "please define environment variable:FFMPEG_PATH")  
+endif()
+
+set(FFMPEG_LIB_SEARCH_PATH
+    $ENV{FFMPEG_PATH}/lib
+    NO_CMAKE_FIND_ROOT_PATH
+)
+
+#find_library(FFMPEG_AVCODEC_LIBRARY     NAMES  avcodec      PATHS ${FFMPEG_LIB_SEARCH_PATH})
+#find_library(FFMPEG_AVDEVICE_LIBRARY    NAMES  avdevice     PATHS ${FFMPEG_LIB_SEARCH_PATH})
+#find_library(FFMPEG_AVFILTER_LIBRARY    NAMES  avfilter     PATHS ${FFMPEG_LIB_SEARCH_PATH})
+find_library(FFMPEG_AVFORMAT_LIBRARY    NAMES  avformat     PATHS ${FFMPEG_LIB_SEARCH_PATH})
+#find_library(FFMPEG_AVUTIL_LIBRARY      NAMES  avutil       PATHS ${FFMPEG_LIB_SEARCH_PATH})
+#find_library(FFMPEG_SWSCALE_LIBRARY     NAMES  swscale      PATHS ${FFMPEG_LIB_SEARCH_PATH})
+
+set(LOOKED_FOR
+    #FFMPEG_AVCODEC_LIBRARY
+    #FFMPEG_AVDEVICE_LIBRARY
+    #FFMPEG_AVFILTER_LIBRARY
+    FFMPEG_AVFORMAT_LIBRARY
+    #FFMPEG_AVUTIL_LIBRARY
+    #FFMPEG_SWSCALE_LIBRARY
+)
+
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(FFMPEG DEFAULT_MSG ${LOOKED_FOR})
+
+if(FFMPEG_FOUND)
+    set(FFMPEG_INCLUDE_DIRS $ENV{FFMPEG_PATH}/include)
+    set(FFMPEG_LIBRARIES ${FFMPEG_AVFORMAT_LIBRARY})
+    set(FFMPEG_LIBRARIES_DIR $ENV{FFMPEG_PATH}/lib)
+    mark_as_advanced(${LOOKED_FOR})
+
+    message(STATUS "Found FFMPEG (include: ${FFMPEG_INCLUDE_DIRS} libraries: ${FFMPEG_LIBRARIES})")
+endif(FFMPEG_FOUND)
+

@@ -1,0 +1,16 @@
+{
+    options_all = {
+        plat = "linux",
+        sdk = "/home/chenjian/Atlas500_DDK/toolchains/Euler_compile_env_cross/arm/cross_compile/install"
+    },
+    options_DstEngine = ref("options_all"),
+    mtimes = {
+        ["xmake.lua"] = 1579093158
+    },
+    options_SSDDetection = ref("options_all"),
+    options_StreamPuller = ref("options_all"),
+    options_VDecEngine = ref("options_all"),
+    options_JpegEncode = ref("options_all"),
+    __version = "2.2.9",
+    options_main = ref("options_all")
+}
